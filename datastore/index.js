@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('underscore');
 const counter = require('./counter');
+const fileHandler = require('./fileHandler');
 
 var items = {};
 
@@ -10,6 +11,8 @@ var items = {};
 exports.create = (text, callback) => {
   counter.getNextUniqueId((id) => {
     items[id] = text;
+    // TODO: Write file storage code
+    fileHandler.storeListItem({ id, text }, exports.dataDir);
     callback(null, { id, text });
   });
 };
