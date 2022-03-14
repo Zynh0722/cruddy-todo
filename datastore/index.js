@@ -11,17 +11,17 @@ var items = {};
 exports.create = (text, callback) => {
   counter.getNextUniqueId((id) => {
     items[id] = text;
-    // TODO: Write file storage code
+    // DONE: Write file storage code
     fileHandler.storeListItem({ id, text }, exports.dataDir);
     callback(null, { id, text });
   });
 };
 
 exports.readAll = (callback) => {
-  var data = _.map(items, (text, id) => {
-    return { id, text };
+  // DONE: Read all files and return array with {id: id, text: id}
+  fileHandler.getListItems(exports.dataDir, (data) => {
+    callback(null, data);
   });
-  callback(null, data);
 };
 
 exports.readOne = (id, callback) => {
