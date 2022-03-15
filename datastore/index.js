@@ -4,13 +4,11 @@ const _ = require('underscore');
 const counter = require('./counter');
 const fileHandler = require('./fileHandler');
 
-var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
   counter.getNextUniqueId((err, id) => {
-    items[id] = text;
     // DONE: Write file storage code
     fileHandler.storeListItem({ id, text }, exports.dataDir);
     callback(null, { id, text });
