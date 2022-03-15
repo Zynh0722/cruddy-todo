@@ -217,6 +217,12 @@ describe('todos', () => {
         done();
       });
     });
+
+    afterEach(() => {
+      if (fs.existsSync(path.join(todos.dataDir, '00001.txt'))) {
+        fs.unlinkSync(path.join(todos.dataDir, '00001.txt'));
+      }
+    });
   });
 
 });
