@@ -19,9 +19,12 @@ exports.storeListItem = (item, dir, cb = ()=>{}) => {
 
 exports.getListItems = (dir, cb = ()=>{}) => {
   fs.readdir(dir, (err, files) => {
-    cb(_(files)
-      .map(file => file.match(/(\d+)\.txt/)[1])
-      .map(id => ({ id: id, 'text': id })));
+    Promise.all(_(files)
+      .map(file => fs.promises.readFile(path.join(dir, file))
+        .then(text => ({ id: file.match(/(\d+)\.txt/)[1], text: String(text)}))
+      ))
+      .then(values => _(values).map(value => value))
+      .then(values => cb(values));
   });
 };
 
