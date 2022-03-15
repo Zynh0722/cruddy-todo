@@ -10,8 +10,9 @@ const fileHandler = require('./fileHandler');
 exports.create = (text, callback) => {
   counter.getNextUniqueId((err, id) => {
     // DONE: Write file storage code
-    fileHandler.storeListItem({ id, text }, exports.dataDir);
-    callback(null, { id, text });
+    fileHandler.storeListItem({ id, text }, exports.dataDir, (err)=>{
+      callback(null, { id, text });
+    });
   });
 };
 
@@ -51,7 +52,7 @@ exports.delete = (id, callback) => {
       // report an error if item not found
       callback(new Error(`No item with id: ${id}`));
     } else {
-      callback();
+      callback(err);
     }
   });
 };
