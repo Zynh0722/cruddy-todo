@@ -9,7 +9,7 @@ const _getPathToFile = (dir, id) => path.join(dir, _getFileName(id));
 exports.storeListItem = (item, dir, cb = ()=>{}) => {
   fs.writeFile(_getPathToFile(dir, item.id), item.text, (err) => {
     if (err) {
-      throw ('some err -> ', err);
+      cb('some err -> ', err);
     } else {
       console.log(`Wrote to file: ${_getFileName(item.id)}`);
     }
@@ -30,6 +30,16 @@ exports.getListItem = (id, dir, cb = ()=>{}) => {
       cb(err);
     } else {
       cb(null, String(text));
+    }
+  });
+};
+
+exports.updateListItem = (id, text, dir, cb = ()=>{}) => {
+  fs.access(_getPathToFile(dir, id), fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.writeFile(_getPathToFile(dir, id), text, cb);
+    } else {
+      cb(err);
     }
   });
 };

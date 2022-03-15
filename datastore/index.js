@@ -36,14 +36,14 @@ exports.readOne = (id, callback) => {
 };
 
 exports.update = (id, text, callback) => {
-  // TODO: refactor to edit a file
-  var item = items[id];
-  if (!item) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    items[id] = text;
-    callback(null, { id, text });
-  }
+  // DONE: refactor to edit a file
+  fileHandler.updateListItem(id, text, exports.dataDir, (err) => {
+    if (err) {
+      callback(new Error(`No item with id: ${id}`));
+    } else {
+      callback(null, { id, text });
+    }
+  });
 };
 
 exports.delete = (id, callback) => {
