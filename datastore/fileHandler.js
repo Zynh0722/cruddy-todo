@@ -34,7 +34,7 @@ exports.getListItem = (id, dir, cb = ()=>{}) => {
   });
 };
 
-exports.updateListItem = (id, text, dir, cb = ()=>{}) => {
+exports.updateListItem = ({ id, text }, dir, cb = ()=>{}) => {
   fs.access(_getPathToFile(dir, id), fs.constants.F_OK, (err) => {
     if (!err) {
       fs.writeFile(_getPathToFile(dir, id), text, cb);
@@ -42,4 +42,8 @@ exports.updateListItem = (id, text, dir, cb = ()=>{}) => {
       cb(err);
     }
   });
+};
+
+exports.deleteListItem = (id, dir, cb = ()=>{}) => {
+  fs.unlink(_getPathToFile(dir, id), cb);
 };
