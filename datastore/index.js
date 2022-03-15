@@ -25,15 +25,18 @@ exports.readAll = (callback) => {
 };
 
 exports.readOne = (id, callback) => {
-  var text = items[id];
-  if (!text) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    callback(null, { id, text });
-  }
+  // DONE: refactor to read from file
+  fileHandler.getListItem(id, exports.dataDir, (err, text) => {
+    if (err) {
+      callback(new Error(`No item with id: ${id}`));
+    } else {
+      callback(null, { id, text });
+    }
+  });
 };
 
 exports.update = (id, text, callback) => {
+  // TODO: refactor to edit a file
   var item = items[id];
   if (!item) {
     callback(new Error(`No item with id: ${id}`));
@@ -44,6 +47,7 @@ exports.update = (id, text, callback) => {
 };
 
 exports.delete = (id, callback) => {
+  // TODO: refactor to delete a file
   var item = items[id];
   delete items[id];
   if (!item) {
