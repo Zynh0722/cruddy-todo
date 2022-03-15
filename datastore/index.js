@@ -9,7 +9,7 @@ var items = {};
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
-  counter.getNextUniqueId((id) => {
+  counter.getNextUniqueId((err, id) => {
     items[id] = text;
     // DONE: Write file storage code
     fileHandler.storeListItem({ id, text }, exports.dataDir);
