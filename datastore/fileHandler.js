@@ -11,7 +11,7 @@ exports.storeListItem = (item, dir, cb = ()=>{}) => {
     if (err) {
       cb('some err -> ', err);
     } else {
-      cb(err);
+      cb(null, item);
       console.log(`Wrote to file: ${_getFileName(item.id)}`);
     }
   });

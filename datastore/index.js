@@ -10,8 +10,8 @@ const fileHandler = require('./fileHandler');
 exports.create = (text, callback) => {
   counter.getNextUniqueId((err, id) => {
     // DONE: Write file storage code
-    fileHandler.storeListItem({ id, text }, exports.dataDir, (err)=>{
-      callback(null, { id, text });
+    fileHandler.storeListItem({ id, text }, exports.dataDir, (err, item)=>{
+      callback(null, item);
     });
   });
 };
