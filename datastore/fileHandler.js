@@ -23,7 +23,6 @@ exports.getListItems = (dir, cb = ()=>{}) => {
       .map(file => fs.promises.readFile(path.join(dir, file))
         .then(text => ({ id: file.match(/(\d+)\.txt/)[1], text: String(text)}))
       ))
-      .then(values => _(values).map(value => value))
       .then(values => cb(values));
   });
 };
